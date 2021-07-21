@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0-pre2" />
+    <PackageReference Include="Resizetizer.NT" Version="0.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MartinPulgarConstructions.Models\MartinPulgarConstructions.Models.csproj" />
+    <ProjectReference Include="..\MartinPulgarConstruction.SDKs\MartinPulgarConstruction.SDKs.csproj" />
+    <ProjectReference Include="..\MartinPulgarConstruction.Services\MartinPulgarConstruction.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="CustomControls\" />
+    <Folder Include="CustomControls\AppBar\" />
+    <Folder Include="Assets\" />
+    <Folder Include="Converters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\pin.svg" />
+    <None Remove="Assets\cross.svg" />
+    <None Remove="Assets\questionmark.svg" />
+    <None Remove="Assets\remove.svg" />
+    <None Remove="Assets\downarrow.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <SharedImage Include="Assets\pin.svg" BaseSize="512,512" />
+    <SharedImage Include="Assets\cross.svg" BaseSize="18,18" />
+    <SharedImage Include="Assets\questionmark.svg" BaseSize="25,25" />
+    <SharedImage Include="Assets\remove.svg" BaseSize="26,25" />
+    <SharedImage Include="Assets\downarrow.svg" BaseSize="16,9" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="AppResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="AppResources.Designer.cs">
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

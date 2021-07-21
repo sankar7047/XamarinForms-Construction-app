@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:MartinPulgarConstructions.ViewModels"
+             xmlns:customcontrols="clr-namespace:MartinPulgarConstructions.CustomControls"
+             xmlns:converters="clr-namespace:MartinPulgarConstructions.Converters"
+             xmlns:local="clr-namespace:MartinPulgarConstructions"
+             x:Class="MartinPulgarConstructions.Views.NewDiaryPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             Title="{x:Static local:AppResources.PageTitle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageStreamConverter x:Key="ImageStreamConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <vm:NewDiaryViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout x:Name="rootView" Orientation="Vertical" Spacing="20">
+                <customcontrols:AppBar BarTextColor="White"
+                                       FontAttributes="Bold"
+                                       FontSize="22"
+                                       BackgroundColor="{StaticResource AppBarBackgroundColor}"
+                                       toolkit:ShadowEffect.Color="{DynamicResource AppShadowColor}" />
+
+                <StackLayout Orientation="Horizontal" Margin="10,0">
+                    <Image Source="pin.png" HeightRequest="25" WidthRequest="25" Aspect="AspectFit"/>
+                    <Label Style="{StaticResource RegularSemiMediumLableStyle}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding ActiveDiary.LocationId}" />
+                                <Span Text=" | " />
+                                <Span Text="{Binding ActiveDiary.LocationName}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+
+                <ScrollView BackgroundColor="{DynamicResource PageContentBackgroundColor}"
+                            Padding="0,0,0,20"
+                            HorizontalScrollBarVisibility="Never"
+                            VerticalScrollBarVisibility="Never">
+                    <StackLayout Orientation="Vertical"
+                                 Spacing="20"
+                                 Margin="15,10">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{x:Static local:AppResources.PageSubTitle}"
+                                   Style="{StaticResource RegularSemiLargeLableStyle}"/>
+                            <Image Source="questionmark.png"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+
+                        <Frame>
+                            <StackLayout Spacing="10">
+                                <Label Text="{x:Static local:AppResources.AddPhotoSectionTitle}"
+                                   Style="{StaticResource BoldSemiMediumLableStyle}" />
+                                <BoxView HeightRequest="1"
+                                         BackgroundColor="{DynamicResource SeparatorLineColor}" />
+
+                                <CollectionView ItemsSource="{Binding SiteDiaryPhotos}"
+                                                ItemSizingStrategy="MeasureFirstItem"
+                                                VerticalOptions="Start"
+                                                HeightRequest="80"
+                                                Margin="0,10">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Horizontal"
+                                                       ItemSpacing="10"/>
+                                    </CollectionView.ItemsLayout>
+
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid HeightRequest="50"
+                                              WidthRequest="75">
+                                                <Image Source="{Binding ., Converter={StaticResource ImageStreamConverter}}"
+                                                       Aspect="Fill"
+                                                       Margin="0,5,5,0"/>
+                                                <Image Source="remove.png"
+                                                       HorizontalOptions="End"
+                                                       VerticalOptions="Start"
+                                                       HeightRequest="17"
+                                                       WidthRequest="18">
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.RemovePhotoCommand, Source={x:Reference rootView}}"
+                                                                              CommandParameter="{Binding}" />
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+
+                                </CollectionView>
+
+                                <Button Text="{x:Static local:AppResources.AddPhotoButtonText}"
+                                        Command="{Binding AddPhotoCommand}"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{x:Static local:AppResources.IncludePhotosToLibrary}"
+                                           Style="{StaticResource RegularSmallLableStyle}"/>
+                                    <CheckBox HorizontalOptions="EndAndExpand"
+                                              IsChecked="True"
+                                              Color="{StaticResource AppPrimaryColor}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame>
+                            <StackLayout>
+                                <Label Text="{x:Static local:AppResources.CommentsSectionTitle}"
+                                       Style="{StaticResource BoldSemiMediumLableStyle}"/>
+                                <BoxView HeightRequest="1"
+                                         BackgroundColor="{DynamicResource SeparatorLineColor}" />
+
+                                <Editor Placeholder="{x:Static local:AppResources.CommentsSectionPlaceholder}"
+                                        Text="{Binding ActiveDiary.Comments, Mode=TwoWay}"
+                                        Style="{StaticResource RegularSemiMediumEditorStyle}" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame>
+                            <StackLayout Spacing="10">
+                                <Label Text="{x:Static local:AppResources.DetailsSectionTitle}"
+                                   Style="{StaticResource BoldSemiMediumLableStyle}"/>
+                                <BoxView HeightRequest="1"
+                                     BackgroundColor="{DynamicResource SeparatorLineColor}" />
+
+                                <DatePicker Format="yyyy-MM-dd" Date="{Binding ActiveDiary.Date, Mode=TwoWay}"/>
+                                <Picker ItemsSource="{Binding Areas}"
+                                        SelectedIndex="0"
+                                        SelectedItem="{Binding ActiveDiary.Area, Mode=TwoWay}"/>
+                                <Picker ItemsSource="{Binding Categories}"
+                                        SelectedIndex="0"
+                                        SelectedItem="{Binding ActiveDiary.Category, Mode=TwoWay}"/>
+                                <Editor Placeholder="{x:Static local:AppResources.DetailsSectionTagsPlaceholder}"
+                                        Text="{Binding ActiveDiary.Tags, Mode=TwoWay}"
+                                        Style="{StaticResource RegularSemiMediumEditorStyle}" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame>
+                            <StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{x:Static local:AppResources.LinkEventsSectionTitle}"
+                                           Style="{StaticResource BoldSemiMediumLableStyle}"/>
+                                    <CheckBox x:Name="canLinkEventsCB"
+                                              IsChecked="{Binding CanLinkEvent, Mode=TwoWay}"
+                                              HorizontalOptions="EndAndExpand"
+                                              Color="{StaticResource AppPrimaryColor}"/>
+                                </StackLayout>
+                                <BoxView HeightRequest="1"
+                                         BackgroundColor="{DynamicResource SeparatorLineColor}" />
+
+                                <Picker ItemsSource="{Binding Events}"
+                                        SelectedItem="{Binding ActiveDiary.Event, Mode=TwoWay}"
+                                        IsEnabled="{Binding IsChecked, Source={x:Reference canLinkEventsCB}}">
+                                    <Picker.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False" TargetType="Picker">
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </Trigger>
+                                    </Picker.Triggers>
+                                </Picker>
+                            </StackLayout>
+                        </Frame>
+
+                        <Button Text="{x:Static local:AppResources.NextButtonText}"
+                                Command="{Binding SaveNewDiaryCommand}"/>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+
+            <BoxView BackgroundColor="Gray" Opacity="0.3" IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Color="{StaticResource AppPrimaryColor}">
+                <ActivityIndicator.Scale>
+                    <OnPlatform x:TypeArguments="x:Double" iOS="2" Android="1.5" />
+                </ActivityIndicator.Scale>
+            </ActivityIndicator>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

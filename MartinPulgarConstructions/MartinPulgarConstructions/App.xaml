@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="MartinPulgarConstructions.App">
+    <Application.Resources>
+
+        <Color x:Key="AppPrimaryColor">#43eb26</Color>
+        <Color x:Key="PageBackgroundColor">#e8ebe8</Color>
+        <Color x:Key="SeparatorLineColor">#e8ebe8</Color>
+        <Color x:Key="AppShadowColor">Gray</Color>
+        <Color x:Key="AppBarBackgroundColor">Black</Color>
+        <Color x:Key="PageContentBackgroundColor">#d6d6d6</Color>
+
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="RegularSmallLableStyle" TargetType="Label" BasedOn="{StaticResource Xamarin.Forms.Label}">
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <Style x:Key="RegularSemiMediumLableStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style x:Key="RegularMediumLableStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+
+        <Style x:Key="RegularSemiLargeLableStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="BoldSemiLargeLableStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <Style x:Key="BoldLargeLableStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <Style x:Key="BoldSmallLableStyle" TargetType="Label" BasedOn="{StaticResource Xamarin.Forms.Label}">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <Style x:Key="BoldSemiMediumLableStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <Style x:Key="BoldMediumLableStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <Style TargetType="Editor">
+            <Setter Property="TextColor" Value="Gray" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="PlaceholderColor" Value="Gray" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="5,0" />
+        </Style>
+
+        <Style x:Key="RegularSemiMediumEditorStyle" TargetType="Editor">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{DynamicResource AppPrimaryColor}"/>
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CornerRadius" Value="3" />
+            <Setter Property="toolkit:ShadowEffect.Color" Value="{DynamicResource AppShadowColor}" />
+            <Setter Property="toolkit:TouchEffect.PressedScale" Value="0.99" />
+        </Style>
+
+        <Style TargetType="Frame">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="HasShadow" Value="True" />
+            <Setter Property="CornerRadius" Value="3" />
+        </Style>
+
+        <Style TargetType="Picker">
+            <Setter Property="HeightRequest" Value="45" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="Gray" />
+            <Setter Property="Margin" Value="5,0" />
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="HeightRequest" Value="45" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="Gray" />
+            <Setter Property="Margin" Value="5,0" />
+        </Style>
+
+    </Application.Resources>
+</Application>
